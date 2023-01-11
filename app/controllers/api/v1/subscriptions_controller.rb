@@ -12,6 +12,11 @@ class Api::V1::SubscriptionsController < ApplicationController
     end
   end
 
+  def index
+    subscriptions = Customer.find(params[:customer_id]).subscriptions
+    render json: SubscriptionSerializer.new(subscriptions), status: 200
+  end
+
   def update
     subscription = Subscription.find(params[:subscription_id])
     subscription.update!(subscription_params)
