@@ -21,7 +21,7 @@ RSpec.describe 'view all of a customers subscriptions' do
 
         expect(results).to be_a(Hash)
         expect(results[:data]).to be_an(Array)
-
+        expect(results[:data].count).to eq(2)
         subscription = results[:data].first
 
         expect(subscription[:id]).to be_a(String)
@@ -31,6 +31,19 @@ RSpec.describe 'view all of a customers subscriptions' do
         expect(subscription[:attributes][:status]).to be_a(String)
         expect(subscription[:attributes][:customer_id]).to be_an(Integer)
         expect(subscription[:attributes][:price]).to be_a(Float)
+      end
+    end
+
+    describe 'when customer id does not exists' do
+      it 'returns a 404 status and error message' do
+        body = {customer_id: 34}
+
+        get '/api/v1/subscriptions', params: body, headers: headers
+        
+        expect(status).to eq(404)
+
+        results = JSON.parse(response.body, symbolize_names: true)
+        expect(results[:error]).to eq("Couldn't find Customer with 'id'=34")
       end
     end
   end
