@@ -33,5 +33,16 @@ RSpec.describe 'subscribe a customer to a tea subscription' do
         expect(results[:data][:attributes][:price]).to be_a(Float)
       end
     end
+
+    describe 'if all attributes are not present' do
+      it 'returns a 400 status and error message' do
+        body = JSON.generate(customer_id: customer.id, title: "Variety Pack", frequency: "Weekly", price: 30)
+        
+        post '/api/v1/subscriptions', params: body, headers: headers
+
+        expect(status).to eq(400)
+        expect(response.body).to eq("Error: Parameter missing")
+      end
+    end
   end
 end
