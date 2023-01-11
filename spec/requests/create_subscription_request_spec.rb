@@ -1,9 +1,3 @@
-# when a customer creates a new subscription it should:
-#     - create a subscription record with that customer's id
-#     - create 3-5 subscription_tea records with subscription id and each tea id selected
-# When the create a subscription endpoint is reached it"
-# - routes to the new subscription controller create method
-# - creates a new subscription and creates a new subscription tea record
 require 'rails_helper'
 
 RSpec.describe 'subscribe a customer to a tea subscription' do
