@@ -9,9 +9,9 @@ This is the back-end API for a fictional tea subscription service. The endpoints
 
 # Local Setup Directions
 ```
-git clone git@github.com:sjmann2/lunch-and-learn.git
+git clone git@github.com:sjmann2/tea-subscription-take-home.git
 
-cd lunch-and-learn
+cd tea-subscription-take-home
 
 bundle install
 
@@ -21,7 +21,8 @@ rails s
 ```
 
 # Database Schema Diagram
-![tea-subscription db](tea-database.png)
+![tea-subscription db](https://user-images.githubusercontent.com/99758586/212128546-45fc7849-35f0-49b9-953b-edfcf5cc8ff8.png)
+
 
 # Endpoints Available
 ## Base URL
