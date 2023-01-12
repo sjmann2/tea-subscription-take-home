@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+ #/var/lib/postgresql/data is a specific path which is the default location postgres stores its data in.
+ # This path is configurable with the PGDATA environment variable (if we wanted to change it)
+ # volumes allows database information to be stored locally on my machine so data persists
+ # across sessions. Without it, the database would be rebuilt everytime a container was stopped
+ # and started again.
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails db:{create,migrate,seed} && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/tea-subscription
+    ports:
+      - "3000:3000"
+    depends_on: 
+      - db
+    environment: 
+      - TEA-SUBSCRIPTION_DATABASE_HOSTNAME=db
+      - TEA-SUBSCRIPTION_DATABASE_PASSWORD=password
+      - TEA-SUBSCRIPTION_DATABASE_USERNAME=postgres
